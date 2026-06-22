@@ -1,0 +1,30 @@
+name: Validate AGENTS config
+
+on:
+  push:
+    paths:
+      - AGENTS.md
+      - README.md
+      - .editorconfig
+      - agent/**
+      - .github/workflows/validate-agent-config.yml
+  pull_request:
+    paths:
+      - AGENTS.md
+      - README.md
+      - .editorconfig
+      - agent/**
+      - .github/workflows/validate-agent-config.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Validate AGENTS configuration
+        run: python3 agent/v0.9/tools/validate_agents.py
